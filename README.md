@@ -1,7 +1,7 @@
 # UberApi
 Not completely functional yet! Still integrating OAuth for user endpoints along with modularization + documentation of code to follow
 tomorrow.
-TODO: Write a gem description
+
 
 ## Installation
 
