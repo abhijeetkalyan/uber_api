@@ -7,10 +7,10 @@ Gem::Specification.new do |spec|
   spec.name          = "uber_api"
   spec.version       = UberApi::VERSION
   spec.authors       = ["Abhijeet Kalyan"]
-  spec.email         = ["TODO: Write your email address"]
-  spec.summary       = %q{TODO: Write a short summary. Required.}
-  spec.description   = %q{TODO: Write a longer description. Optional.}
-  spec.homepage      = ""
+  spec.email         = ["abhijeetkalyan@gmail.com"]
+  spec.summary       = %q{Ruby client for the Uber API.}
+  spec.description   = %q{Ruby client for the Uber API. Supports all endpoints, but please read the oauth_example on Github for how to generate bearer tokens}
+  spec.homepage      = "https://github.com/abhijeetkalyan/uber_api"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")
