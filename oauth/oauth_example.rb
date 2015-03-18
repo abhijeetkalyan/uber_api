@@ -8,9 +8,9 @@ workflow with the specified redirect URI. (To test this successfully, you'll nee
 require 'sinatra'
 require 'faraday'
 require 'faraday_middleware'
-CLIENT_ID = ''
+CLIENT_ID = ENV['UBER_CLIENT_ID']
 REDIRECT_URL = 'http://localhost:4567/auth' 
-SECRET = ''
+SECRET = ENV['UBER_SECRET']
 AUTH_URL = 'https://login.uber.com/oauth/authorize'
 TOKEN_URL = 'https://login.uber.com/oauth/token'
 
