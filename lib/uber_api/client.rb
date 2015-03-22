@@ -10,16 +10,18 @@ require "json"
 
 module Uber
 	class Client
-		API_LOCATION = 'https://api.uber.com'
+
 		API_VERSION = '/v1'
+
 		attr_accessor :server_token ,:bearer_token
 
 		def initialize(params={})
 			params.each { |k,v| instance_variable_set("@#{k}", v) }
+			@api_location = @sandbox ? 'https://sandbox-api.uber.com' : 'https://api.uber.com'
 		end
 
 		def conn
-			@conn = Faraday.new API_LOCATION do |conn|
+			@conn = Faraday.new @api_location do |conn|
 				conn.request :json
 				conn.response :json, :content_type => /\bjson$/
 				if !@bearer_token then conn.authorization :Token, @server_token else conn.authorization :Bearer , @bearer_token end 
@@ -31,6 +33,17 @@ module Uber
 			query_string = API_VERSION + endpoint
 			response = conn.get query_string, params
 			response_hash = JSON.parse(response.body.to_json)
+		end
+
+		def post(endpoint, params)
+			query_string = API_VERSION + endpoint
+			response = conn.post query_string, params
+			response_hash = JSON.parse(response.body.to_json)
+		end
+
+		def put(endpoint, params)
+			query_string = API_VERSION + endpoint
+			response_hash = JSON.parse(response.body.to_json) unless response.body == ""
 		end
 		
 		def products(latitude, longitude)
@@ -62,5 +75,19 @@ module Uber
 			params = {}
 			response = get("/me", params)
 		end	
+
+		def request(params = {})
+			response = post("/requests", params)
+		end
+
+		def request_status(id)
+			params = {}
+			response = get("/requests/#{id}", params)
+		end
+
+		def move_request(id, status)
+			params = {:status => status.to_s}
+			response = put("/sandbox/requests/#{id}", params)
+		end
 	end	
 end
