@@ -43,6 +43,7 @@ module Uber
 
 		def put(endpoint, params)
 			query_string = API_VERSION + endpoint
+			response = conn.put query_string, params
 			response_hash = JSON.parse(response.body.to_json) unless response.body == ""
 		end
 		
